@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APPROVED_COMMITTERS = 'pratikkambl3,shyamsundar'         // Whitelisted committers
-        EMAIL_RECIPIENTS = 'stocksbulls47@gmail.com'      // Change this
+        EMAIL_RECIPIENTS = 'pratikkamble122@gmail.com'      // Change this
     }
 
     stages {
