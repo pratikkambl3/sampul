@@ -29,16 +29,21 @@ pipeline {
         }
 
         stage('Check Trigger Source') {
-            steps {
-                script {
-                    def cause = currentBuild.rawBuild.getCauses()[0]
-                    if (!(cause instanceof hudson.model.Cause.UserIdCause)) {
-                        sendAlert("🚨 Unexpected Trigger", "Build triggered by: <b>${cause}</b> — expected manual trigger.")
-                        error("Unexpected trigger detected.")
-                    }
-                }
+    steps {
+        script {
+            def causes = currentBuild.getBuildCauses()
+            def isManual = causes.any { it._class == 'hudson.model.Cause$UserIdCause' }
+
+            if (!isManual) {
+                sendAlert(
+                    "🚨 Unexpected Trigger",
+                    "Build was not triggered manually. Detected cause(s): <pre>${causes*.shortDescription.join('\n')}</pre>"
+                )
+                error("Unexpected trigger detected.")
             }
         }
+    }
+}
 
         stage('Build & Test') {
             steps {
