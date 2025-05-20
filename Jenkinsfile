@@ -5,10 +5,10 @@ pipeline {
         pollSCM('* * * * *') // optional: for fallback polling
     }
 
-    environment {
-        APPROVED_COMMITTERS = 'pratikkambl3,shyamsundar'         // Whitelisted committers
-        EMAIL_RECIPIENTS = 'pratikkamble122@gmail.com'      // Change this
-    }
+   environment {
+    APPROVED_COMMITTERS = "${env.APPROVED_COMMITTERS}"
+    EMAIL_RECIPIENTS = "${env.EMAIL_RECIPIENTS}" 
+}
 
     stages {
         stage('Checkout') {
