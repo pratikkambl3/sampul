@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        pollSCM('* * * * *') // optional: for fallback polling
+    }
+
     environment {
         APPROVED_COMMITTERS = 'pratikkambl3,shyamsundar'         // Whitelisted committers
         EMAIL_RECIPIENTS = 'pratikkamble122@gmail.com'      // Change this
